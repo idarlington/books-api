@@ -55,7 +55,7 @@ class NewYorkTimesService[F[_]: Async](
       ("api-key", s"${cfg.apiKey.value}")
     )
     for {
-      resp <- Stream.eval(client(request).liftF[F])
+      resp <- Stream.eval(client(request).liftF)
       _    <- Stream.eval(Async[F].pure(checkStatusCode(resp.status))).rethrow
 
       nytBooks <- Stream

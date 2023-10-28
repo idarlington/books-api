@@ -42,8 +42,8 @@ class RequestMeter[F[_]: Async: NonEmptyParallel](
           compiled(req)
         case None =>
           for {
-            minute <- minuteMeter.await(1).liftF.attempt
-            daily  <- dailyMeter.await(1).liftF.attempt
+            minute <- (minuteMeter.await(1)).liftF.attempt
+            daily  <- (dailyMeter.await(1)).liftF.attempt
 
             resp <- (minute, daily) match {
               case (Right(_), Right(_)) => compiled(req)

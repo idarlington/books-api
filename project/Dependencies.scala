@@ -1,4 +1,4 @@
-import sbt._
+import sbt.*
 
 object Dependencies {
 
@@ -28,8 +28,7 @@ object Dependencies {
     val refined = "eu.timepit" %% "refined" % Versions.refined
 
     val finchCore    = finch("core")
-    val finchCirce   = finch("circe")
-    val finchFs2     = finch("fs2")
+    val finchCirce   = finch("circe") excludeAll ExclusionRule(organization = "io.circe")
     val finchRefined = finch("refined")
 
     val fs2Data      = "org.gnieh" %% "fs2-data-json"       % Versions.fs2Data
