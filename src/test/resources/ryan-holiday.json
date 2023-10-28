@@ -1,0 +1,249 @@
+{
+  "status": "OK",
+  "copyright": "Copyright (c) 2023 The New York Times Company.  All Rights Reserved.",
+  "num_results": 4,
+  "results": [
+    {
+      "title": "COURAGE IS CALLING",
+      "description": "",
+      "contributor": "by Ryan Holiday",
+      "author": "Ryan Holiday",
+      "contributor_note": "",
+      "price": "0.00",
+      "age_group": "",
+      "publisher": "Portfolio",
+      "isbns": [
+        {
+          "isbn10": "0593191676",
+          "isbn13": "9780593191675"
+        },
+        {
+          "isbn10": "0593191684",
+          "isbn13": "9780593191682"
+        }
+      ],
+      "ranks_history": [
+        {
+          "primary_isbn10": "0593191676",
+          "primary_isbn13": "9780593191675",
+          "rank": 3,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2021-10-17",
+          "bestsellers_date": "2021-10-02",
+          "weeks_on_list": 1,
+          "rank_last_week": 0,
+          "asterisk": 0,
+          "dagger": 1
+        }
+      ],
+      "reviews": [
+        {
+          "book_review_link": "",
+          "first_chapter_link": "",
+          "sunday_review_link": "",
+          "article_chapter_link": ""
+        }
+      ]
+    },
+    {
+      "title": "DISCIPLINE IS DESTINY",
+      "description": "",
+      "contributor": "by Ryan Holiday",
+      "author": "Ryan Holiday",
+      "contributor_note": "",
+      "price": "0.00",
+      "age_group": "",
+      "publisher": "Portfolio",
+      "isbns": [
+        {
+          "isbn10": "0593191692",
+          "isbn13": "9780593191699"
+        },
+        {
+          "isbn10": "0593191706",
+          "isbn13": "9780593191705"
+        }
+      ],
+      "ranks_history": [
+        {
+          "primary_isbn10": "0593191692",
+          "primary_isbn13": "9780593191699",
+          "rank": 7,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2022-11-06",
+          "bestsellers_date": "2022-10-22",
+          "weeks_on_list": 4,
+          "rank_last_week": 6,
+          "asterisk": 0,
+          "dagger": 1
+        },
+        {
+          "primary_isbn10": "0593191692",
+          "primary_isbn13": "9780593191699",
+          "rank": 6,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2022-10-30",
+          "bestsellers_date": "2022-10-15",
+          "weeks_on_list": 3,
+          "rank_last_week": 4,
+          "asterisk": 0,
+          "dagger": 1
+        },
+        {
+          "primary_isbn10": "0593191692",
+          "primary_isbn13": "9780593191699",
+          "rank": 4,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2022-10-23",
+          "bestsellers_date": "2022-10-08",
+          "weeks_on_list": 2,
+          "rank_last_week": 2,
+          "asterisk": 0,
+          "dagger": 1
+        },
+        {
+          "primary_isbn10": "0593191692",
+          "primary_isbn13": "9780593191699",
+          "rank": 2,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2022-10-16",
+          "bestsellers_date": "2022-10-01",
+          "weeks_on_list": 1,
+          "rank_last_week": 0,
+          "asterisk": 0,
+          "dagger": 1
+        }
+      ],
+      "reviews": [
+        {
+          "book_review_link": "",
+          "first_chapter_link": "",
+          "sunday_review_link": "",
+          "article_chapter_link": ""
+        }
+      ]
+    },
+    {
+      "title": "LIVES OF THE STOICS",
+      "description": "",
+      "contributor": "by Ryan Holiday and Stephen Hanselman",
+      "author": "Ryan Holiday and Stephen Hanselman",
+      "contributor_note": "",
+      "price": "0.00",
+      "age_group": "",
+      "publisher": "Portfolio/Penguin",
+      "isbns": [
+        {
+          "isbn10": "052554187X",
+          "isbn13": "9780525541875"
+        }
+      ],
+      "ranks_history": [
+        {
+          "primary_isbn10": "052554187X",
+          "primary_isbn13": "9780525541875",
+          "rank": 8,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2020-10-18",
+          "bestsellers_date": "2020-10-03",
+          "weeks_on_list": 1,
+          "rank_last_week": 0,
+          "asterisk": 0,
+          "dagger": 0
+        },
+        {
+          "primary_isbn10": "052554187X",
+          "primary_isbn13": "9780525541875",
+          "rank": 9,
+          "list_name": "Business Books",
+          "display_name": "Business",
+          "published_date": "2020-10-18",
+          "bestsellers_date": "2020-10-03",
+          "weeks_on_list": 0,
+          "rank_last_week": 0,
+          "asterisk": 0,
+          "dagger": 0
+        }
+      ],
+      "reviews": [
+        {
+          "book_review_link": "",
+          "first_chapter_link": "",
+          "sunday_review_link": "",
+          "article_chapter_link": ""
+        }
+      ]
+    },
+    {
+      "title": "STILLNESS IS THE KEY",
+      "description": "",
+      "contributor": "by Ryan Holiday",
+      "author": "Ryan Holiday",
+      "contributor_note": "",
+      "price": "0.00",
+      "age_group": "",
+      "publisher": "Portfolio/Penguin",
+      "isbns": [
+        {
+          "isbn10": "0525538585",
+          "isbn13": "9780525538585"
+        }
+      ],
+      "ranks_history": [
+        {
+          "primary_isbn10": "0525538585",
+          "primary_isbn13": "9780525538585",
+          "rank": 1,
+          "list_name": "Business Books",
+          "display_name": "Business",
+          "published_date": "2019-11-17",
+          "bestsellers_date": "2019-11-02",
+          "weeks_on_list": 0,
+          "rank_last_week": 0,
+          "asterisk": 0,
+          "dagger": 0
+        },
+        {
+          "primary_isbn10": "0525538585",
+          "primary_isbn13": "9780525538585",
+          "rank": 4,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2019-10-27",
+          "bestsellers_date": "2019-10-12",
+          "weeks_on_list": 2,
+          "rank_last_week": 1,
+          "asterisk": 0,
+          "dagger": 0
+        },
+        {
+          "primary_isbn10": "0525538585",
+          "primary_isbn13": "9780525538585",
+          "rank": 1,
+          "list_name": "Advice How-To and Miscellaneous",
+          "display_name": "Advice, How-To & Miscellaneous",
+          "published_date": "2019-10-20",
+          "bestsellers_date": "2019-10-05",
+          "weeks_on_list": 1,
+          "rank_last_week": 0,
+          "asterisk": 0,
+          "dagger": 0
+        }
+      ],
+      "reviews": [
+        {
+          "book_review_link": "",
+          "first_chapter_link": "",
+          "sunday_review_link": "",
+          "article_chapter_link": ""
+        }
+      ]
+    }
+  ]
+}
