@@ -17,6 +17,7 @@ lazy val root = (project in file("."))
     ),
     dockerBaseImage := "openjdk:11-jre-slim-buster",
     dockerExposedPorts ++= Seq(8087, 9990),
+    dockerRepository := None,
     testFrameworks += new TestFramework("weaver.framework.CatsEffect"),
     libraryDependencies ++= Seq(
       CompilerPlugin.betterMonadicFor,

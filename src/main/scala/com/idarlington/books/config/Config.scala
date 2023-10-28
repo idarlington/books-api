@@ -10,7 +10,7 @@ import eu.timepit.refined.types.net.PortNumber
 object Config {
   private val retryConfig: ConfigValue[Effect, RetryConfig] =
     (default(10: PositiveInt), default(10: PositiveInt))
-      .parMapN(RetryConfig)
+      .parMapN((backOffMin, backOffMax) => RetryConfig(backOffMin, backOffMax))
 
   private val sessionConfig: ConfigValue[Effect, SessionConfig] =
     (
@@ -18,7 +18,9 @@ object Config {
       default(5: PositiveInt),
       default(10: PositiveInt),
       default(30: PositiveInt)
-    ).parMapN(SessionConfig)
+    ).parMapN((minSize, maxSize, maxWaiters, ttl) =>
+      SessionConfig(minSize, maxSize, maxWaiters, ttl)
+    )
 
   val nytClient: ConfigValue[Effect, NewYorkTimesClient] =
     (

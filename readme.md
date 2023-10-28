@@ -97,6 +97,11 @@ sbt run
 
 By default, the api server runs on `:8087` and the admin server runs on `:9990`.
 
+## Docker
+
+Docker images can be generated and published for this service. Running `sbt docker:publishLocal` generates a local
+docker image. To publish to a docker repository, please update the [build file](build.sbt).
+
 ### Tests
 
 ```shell
@@ -105,12 +110,16 @@ sbt test
 
 ## Assumptions and design choices
 
+- production instances will have the admin server port for internal requests only.
+- new york times api doesn't actually provide the publication year of a book, it is assumed that the year of
+  publication is similar to the year the book appear on a bestseller list.
+
 ## Improvements
 
 This implementation can be improved in these areas:
 
-- pagination of responses to clients
 - more metrics
+- pagination of responses to clients
 - more unit tests for components
 - integration testing
-- supervising the created resources
+- improve request metering 
