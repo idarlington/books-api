@@ -1,4 +1,4 @@
-package com.idarlington.books.services
+package com.idarlington.books.api
 
 import io.circe._
 object ExceptionEncoder {

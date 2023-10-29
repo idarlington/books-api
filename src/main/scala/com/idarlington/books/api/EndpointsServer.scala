@@ -7,6 +7,7 @@ import com.twitter.finagle.http.{Request, Response}
 import io.circe.generic.auto._
 import io.finch._
 import io.finch.circe._
+import ExceptionEncoder._
 
 object EndpointsServer {
 
