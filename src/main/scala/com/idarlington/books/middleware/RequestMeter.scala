@@ -4,12 +4,12 @@ import cats.NonEmptyParallel
 import cats.effect.Async
 import cats.syntax.all._
 import com.idarlington.books.model.{NewYorkTimesBooks, RateLimitError}
-import com.idarlington.books.services.FutureUtils._
 import com.twitter.concurrent.AsyncMeter
 import com.twitter.finagle.Failure
 import com.twitter.finagle.http.{Request, Response}
 import io.chrisdavenport.mules.MemoryCache
 import io.finch._
+import io.finch.internal.TwitterFutureConverter
 
 class RequestMeter[F[_]: Async: NonEmptyParallel](
     minuteMeter: AsyncMeter,
@@ -42,8 +42,8 @@ class RequestMeter[F[_]: Async: NonEmptyParallel](
           compiled(req)
         case None =>
           for {
-            minute <- (minuteMeter.await(1)).liftF.attempt
-            daily  <- (dailyMeter.await(1)).liftF.attempt
+            minute <- minuteMeter.await(1).toAsync.attempt
+            daily  <- dailyMeter.await(1).toAsync.attempt
 
             resp <- (minute, daily) match {
               case (Right(_), Right(_)) => compiled(req)

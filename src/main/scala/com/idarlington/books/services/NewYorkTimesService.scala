@@ -5,7 +5,6 @@ import cats.implicits._
 import com.idarlington.books.config
 import com.idarlington.books.model.Book.{Author, BookYear}
 import com.idarlington.books.model._
-import com.idarlington.books.services.FutureUtils._
 import com.twitter.finagle.Service
 import com.twitter.finagle.http._
 import eu.timepit.refined.auto._
@@ -13,6 +12,7 @@ import fs2.Stream
 import fs2.data.json.circe._
 import fs2.data.json.{codec, tokens}
 import io.chrisdavenport.mules.MemoryCache
+import io.finch.internal.TwitterFutureConverter
 
 import java.time.Year
 
@@ -55,7 +55,7 @@ class NewYorkTimesService[F[_]: Async](
       ("api-key", s"${cfg.apiKey.value}")
     )
     for {
-      resp <- Stream.eval(client(request).liftF)
+      resp <- Stream.eval(client(request).toAsync)
       _    <- Stream.eval(Async[F].pure(checkStatusCode(resp.status))).rethrow
 
       nytBooks <- Stream
