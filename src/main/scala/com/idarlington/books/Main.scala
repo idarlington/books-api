@@ -1,7 +1,7 @@
 package com.idarlington.books
 
 import cats.effect.unsafe.implicits.global
-import cats.effect.{IO, Resource}
+import cats.effect.{ExitCode, IO, Resource}
 import cats.implicits._
 import com.idarlington.books.api.{BooksApi, EndpointsServer, HttpServer}
 import com.idarlington.books.config.Config
@@ -12,6 +12,8 @@ import com.idarlington.books.services.clients.NewYorkTimesClient
 import com.twitter.server.TwitterServer
 import io.finch.EndpointModule
 import org.typelevel.log4cats.slf4j.Slf4jLogger
+
+import scala.concurrent.duration.DurationLong
 
 object Main extends TwitterServer with EndpointModule[IO] {
 
@@ -40,6 +42,7 @@ object Main extends TwitterServer with EndpointModule[IO] {
           }
         }
       }
+      .as(ExitCode.Success)
       .onError(e => IO(exitOnError(e)))
-      .unsafeRunSync()
+      .unsafeRunTimed(Long.MaxValue.nanos)
 }

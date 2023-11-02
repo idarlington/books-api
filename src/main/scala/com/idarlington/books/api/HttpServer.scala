@@ -31,13 +31,12 @@ object HttpServer {
   ): Resource[F, ListeningServer] = {
 
     serviceResource.flatMap { service =>
-      val server = Async[F]
-        .delay(
-          base(serverConfig)
-            .configured(Label(Main.name))
-            .withStatsReceiver(statsReceiver)
-            .serve(s":${serverConfig.port.value}", service)
-        )
+      val server = Async[F].delay(
+        base(serverConfig)
+          .configured(Label(Main.name))
+          .withStatsReceiver(statsReceiver)
+          .serve(s":${serverConfig.port.value}", service)
+      )
 
       Resource.make(server)(listeningServer => Async[F].defer(listeningServer.close().toAsync))
     }

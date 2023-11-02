@@ -31,7 +31,6 @@ lazy val root = (project in file("."))
       Libraries.twitterServer,
       Libraries.twitterServerSlf4j,
       Libraries.finagleStats,
-      Libraries.catbird,
       Libraries.circeParser,
       Libraries.circeGeneric,
       Libraries.circeExtras,

@@ -16,7 +16,7 @@ object BooksApiSuite extends IOSuite {
   override def sharedResource: Resource[IO, NewYorkTimesService[IO]] = {
     for {
       clientCache   <- Resource.eval(cacheResults)
-      cache         <- Resource.eval(cacheIO(None))
+      cache         <- Resource.eval(cacheIO)
       client        <- new Server(clientCache).service
       serviceConfig <- Resource.eval(serviceConfig)
       nytService = new NewYorkTimesService[IO](serviceConfig, cache, client)
@@ -82,12 +82,49 @@ object BooksApiSuite extends IOSuite {
       expect(books.author == ryan.value)
       expect(filtered.author == ryan.value) &&
       expect(multipleYears.author == ryan.value) &&
-      expect(books.books.size > filtered.books.size)
-      expect(filtered.books.size < multipleYears.books.size)
+      expect(books.books.size > filtered.books.size) &&
+      expect(filtered.books.size < multipleYears.books.size) &&
       expect(
         books != filtered &&
           books != multipleYears &&
           filtered != multipleYears
+      )
+    }
+  }
+
+  test("responds to queries with page params") { nytService =>
+    val requestRyan: Input = Input.get("/books", ("author" -> ryan.value))
+    val requestRyanWithPageOne: Input =
+      Input.get("/books", ("author" -> ryan.value), ("page" -> "1"))
+    val booksApi = new BooksApi[IO](nytService)
+    val requestRyanWithPageTwo: Input =
+      Input.get("/books", ("author" -> ryan.value), ("page" -> "2"))
+
+    for {
+      books   <- booksApi.route(requestRyan).value
+      pageOne <- booksApi.route(requestRyanWithPageOne).value
+      pageTwo <- booksApi.route(requestRyanWithPageTwo).value
+    } yield {
+      expect {
+        books.books.nonEmpty &&
+        pageOne.books.nonEmpty &&
+        pageTwo.books.isEmpty
+      } &&
+      expect {
+        (books.author == ryan.value) &&
+        (pageOne.author == ryan.value) &&
+        (pageTwo.author == ryan.value)
+      } && expect {
+        (books.page == 1) &&
+        (pageOne.page == 1) &&
+        (pageTwo.page == 2) &&
+        (books.books.size == pageOne.books.size) &&
+        (pageOne.books.size > pageTwo.books.size)
+      } &&
+      expect(
+        books == pageOne &&
+          books != pageTwo &&
+          pageOne != pageTwo
       )
     }
   }

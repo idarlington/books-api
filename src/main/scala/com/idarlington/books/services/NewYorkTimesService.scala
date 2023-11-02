@@ -3,7 +3,7 @@ package com.idarlington.books.services
 import cats.effect.Async
 import cats.implicits._
 import com.idarlington.books.config
-import com.idarlington.books.model.Book.{Author, BookYear}
+import com.idarlington.books.model.Book.{Author, BookYear, Page}
 import com.idarlington.books.model._
 import com.twitter.finagle.Service
 import com.twitter.finagle.http._
@@ -18,20 +18,24 @@ import java.time.Year
 
 class NewYorkTimesService[F[_]: Async](
     cfg: config.NewYorkTimesService,
-    cache: MemoryCache[F, String, NewYorkTimesBooks],
+    cache: MemoryCache[F, (String, Int), NewYorkTimesBooks],
     client: Service[Request, Response]
 ) {
 
   def booksByAuthor(
       author: Author,
-      years: List[BookYear]
+      years: List[BookYear],
+      page: Option[Page]
   ): F[Books] = {
+    val pageValue = page.getOrElse(1: Page).value
+    val offset    = (pageValue - 1) * 20
+
     val stream = for {
-      maybeContent <- Stream.eval(cache.lookup(author.toLowerCase))
+      maybeContent <- Stream.eval(cache.lookup((author.toLowerCase, pageValue)))
 
       nytBooks <- maybeContent match {
         case Some(content) => Stream.eval(Async[F].pure(content))
-        case None          => requestBooks(author)
+        case None          => requestBooks(author, offset)
       }
 
       transformed <- transform(author, nytBooks)
@@ -42,17 +46,20 @@ class NewYorkTimesService[F[_]: Async](
       .compile
       .toList
       .map { books =>
-        Books(author.value, books)
+        Books(author.value, books = books, page = pageValue)
       }
   }
 
   private def requestBooks(
-      author: Author
+      author: Author,
+      offset: Int
   ): Stream[F, NewYorkTimesBooks] = {
+
     val request = Request(
       s"${cfg.historyPath.value}",
       ("author", s"${author.value}"),
-      ("api-key", s"${cfg.apiKey.value}")
+      ("api-key", s"${cfg.apiKey.value}"),
+      ("offset", s"${offset}")
     )
     for {
       resp <- Stream.eval(client(request).toAsync)
@@ -63,7 +70,7 @@ class NewYorkTimesService[F[_]: Async](
         .through(tokens[F, String])
         .through(codec.deserialize[F, NewYorkTimesBooks])
 
-      _ <- Stream.attemptEval(cache.insert(author.value.toLowerCase, nytBooks)).spawn
+      _ <- Stream.attemptEval(cache.insert((author.value.toLowerCase, offset), nytBooks)).spawn
 
     } yield nytBooks
   }

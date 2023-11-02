@@ -1,4 +1,4 @@
-# Books API Server
+# Books API Service
 
 This project implements an api service that gets all books by a specified author that have appeared on the New York
 Times Bestsellers list.
@@ -80,10 +80,10 @@ Request metering is implemented as the New York Times api dependency
 implements [rate limits](https://developer.nytimes.com/faq#a11) on calls. There is a rate limit of `500` requests per
 day and `5` requests per minute.
 
-This implies for this service, calls have to be metered to avoid hitting the rate
+This implies, calls to this service have to be metered to avoid hitting the rate
 limits. [Meters](https://twitter.github.io/util/docs/com/twitter/concurrent/AsyncMeter.html)
 are [implemented](/src/main/scala/com/idarlington/books/middleware/RequestMeter.scala) for both the minute and daily
-limit. If a request to the service has a previous New York Times api cached it is not metered.
+limit. If a request to the service has a previous New York Times api response cached it is not metered.
 
 ## Running the application
 

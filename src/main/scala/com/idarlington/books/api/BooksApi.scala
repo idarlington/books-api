@@ -2,7 +2,7 @@ package com.idarlington.books.api
 
 import cats.effect.Async
 import cats.implicits._
-import com.idarlington.books.model.Book.{Author, BookYear}
+import com.idarlington.books.model.Book.{Author, BookYear, Page}
 import com.idarlington.books.model.{Books, RateLimitError}
 import com.idarlington.books.services.NewYorkTimesService
 import com.twitter.finagle.http.Status
@@ -15,11 +15,12 @@ class BooksApi[F[_]: Async](
 ) extends Endpoint.Module[F] {
 
   private def getBooks: Endpoint[F, Books] =
-    get("books" :: param[Author]("author") :: params[BookYear]("year")) {
-      (author: Author, year: List[BookYear]) =>
-        nytBooksService
-          .booksByAuthor(author, year)
-          .map(Ok)
+    get(
+      "books" :: param[Author]("author") :: params[BookYear]("year") :: paramOption[Page]("page")
+    ) { (author: Author, year: List[BookYear], page: Option[Page]) =>
+      nytBooksService
+        .booksByAuthor(author, year, page)
+        .map(Ok)
     }.handle {
       case ex: JsonException   => InternalServerError(ex)
       case ex: Error.NotParsed => BadRequest(new Exception(ex.getMessage()))

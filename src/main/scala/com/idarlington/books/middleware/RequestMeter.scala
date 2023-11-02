@@ -14,7 +14,7 @@ import io.finch.internal.TwitterFutureConverter
 class RequestMeter[F[_]: Async: NonEmptyParallel](
     minuteMeter: AsyncMeter,
     dailyMeter: AsyncMeter,
-    cache: MemoryCache[F, String, NewYorkTimesBooks]
+    cache: MemoryCache[F, (String, Int), NewYorkTimesBooks]
 ) {
 
   val meter: Endpoint.Compiled[F] => Endpoint.Compiled[F] = compiled => {
@@ -27,16 +27,17 @@ class RequestMeter[F[_]: Async: NonEmptyParallel](
     }
   }
 
-  private def get(key: String): F[Option[NewYorkTimesBooks]] =
-    cache.lookup(key.toLowerCase)
+  private def get(key: String, page: Int): F[Option[NewYorkTimesBooks]] =
+    cache.lookup((key.toLowerCase, page))
 
   private def filter(
       maybeAuthor: Option[String],
       req: Request,
       compiled: Endpoint.Compiled[F]
   ): F[(Trace, Either[Throwable, Response])] = {
+    val page: Int = req.params.getIntOrElse("page", 1)
     for {
-      maybeContent <- maybeAuthor.traverse(key => get(key)).map(_.flatten)
+      maybeContent <- maybeAuthor.traverse(key => get(key, page)).map(_.flatten)
       response <- maybeContent match {
         case Some(_) =>
           compiled(req)
